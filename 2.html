@@ -50,7 +50,111 @@
 <script>
   "use strict";
 
-  // Здесь пишем решение, данный комментарий необходимо стереть.
+  function PostES5(name, text) {
+    this.name = name;
+    this.text = text;
+    this.updatedAt = new Date();
+  }
+
+  PostES5.prototype.edit = function(text) {
+    this.text = text;
+    this.updatedAt = new Date();
+  };
+
+  const postES5 = new PostES5(`Михаил`, `Всем привет`);
+  console.log(postES5);
+  postES5.edit('Как у вас дела?');
+  console.log(postES5);
+  
+  function AttachedPostES5(name, text) {
+    PostES5.call(this, name, text);
+    this.highlighted = false;
+  }
+
+  AttachedPostES5.prototype = Object.create(PostES5.prototype);
+  AttachedPostES5.prototype.constructor = AttachedPostES5;
+
+  AttachedPostES5.prototype.makeTextHighlighted = function() {
+    this.highlighted = true;
+    this.updatedAt = new Date();
+  };
+
+  const attachedES5 = new AttachedPostES5('Михаил', 'Сегодня ясно');
+  console.log(attachedES5);
+  attachedES5.makeTextHighlighted();
+  attachedES5.edit('А завтра дождь');
+  console.log(attachedES5);
+
+/*
+  function PostES5(name, text) {
+    this.name = name;
+    this.text = text;
+    this.updatedAt = new Date();
+  }
+
+  PostES5.prototype.edit = function(text) {
+    this.text = text;
+    this.updatedAt = new Date();
+  };
+
+  const postES5 = new PostES5(`Михаил`, `Привет`);
+  console.log(postES5.name, postES5.text, postES5.updatedAt );
+  postES5.edit('Как дела?');
+  console.log(postES5.name, postES5.text, postES5.updatedAt );
+  
+  function AttachedPostES5(name, text) {
+    PostES5.call(this, name, text);
+    this.highlighted = false;
+  }
+
+  AttachedPostES5.prototype = Object.create(PostES5.prototype);
+  AttachedPostES5.prototype.constructor = AttachedPostES5;
+
+  AttachedPostES5.prototype.makeTextHighlighted = function() {
+    this.highlighted = true;
+    this.updatedAt = new Date();
+  };
+
+  const attachedES5 = new AttachedPostES5('Михаил', 'Сегодня ясно');
+  console.log(attachedES5.name, attachedES5.text, attachedES5.updatedAt );
+  attachedES5.makeTextHighlighted();
+  attachedES5.edit('Затвра будет дождь');
+  console.log(attachedES5.name, attachedES5.text, attachedES5.updatedAt );
+*/
+// был не уверен в правильности вывода в лог поэтому подсматрел как в ответах
+// и решил сделать так же.
+class PostES6 {
+    constructor(name, text) {
+      this.name = name;
+      this.text = text;
+      this.date = new Date();
+    }
+
+    edit(text) {
+      this.text = text;
+      this.date = new Date();
+    }
+  }
+
+  const postES6 = new PostES6(`Михаил`, `Привет`);
+  console.log(postES6);
+  postES6.edit('Как дела?');
+  console.log(postES6);
+
+  class AttachedPostES6 extends PostES6 {
+    highlighted = false;
+    makeTextHighlighted() {
+      this.highlighted = true;
+      this.date = new Date();
+    }
+  }
+
+  const attachedPostES6 = new AttachedPostES6('Михаил', 'Сегодня ясно');
+  console.log(attachedPostES6);
+  attachedPostES6.makeTextHighlighted();
+  attachedPostES6.edit('Затвра будет дождь');
+  console.log(attachedPostES6);
+
 </script>
 </body>
 </html>
